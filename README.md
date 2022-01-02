@@ -2,11 +2,12 @@
 
 Doto list
 
-ssh server -> complete
-hardware support -> cpu and ram complete
-network -> lan for pc complete
-filesystem -> in progress
-os - commands: 
+- ssh server -> complete
+- hardware support -> cpu and ram complete
+- network -> lan for pc complete
+- filesystem -> in progress
+
+- os - commands: 
   - cd : complete
   - ls
   - cat
@@ -20,5 +21,5 @@ os - commands:
   - ssh (to lan pc)
   - apk (packet manager???)
 
-gui app with blessed lib:
+- gui app with blessed lib:
   - mail client
