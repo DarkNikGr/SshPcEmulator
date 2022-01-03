@@ -49,7 +49,7 @@ class Commant {
         this.pc.write(`-h, --help           Show app help`);
     }
 
-    async version(args) {
+    async showVersion(args) {
         this.pc.write(`Version: ${this.version}`);
     }
 
@@ -58,7 +58,7 @@ class Commant {
             await this.man(args);
             return true;
         } else if (args.v || args.version) {
-            await this.version(args);
+            await this.showVersion(args);
             return true;
         }
         return await this.run(args);

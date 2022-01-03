@@ -5,8 +5,6 @@ class cmdTest extends Commant {
         this.pc.write(`start test with id: ${this.id}`);
         if (!this.pc.hardware.ram.add(this.id, 512)) return this.exit('not enough memory');
 
-        console.log(this.pc.network.lan.keys());
-
         this.pc.write(`run with cpu: ${this.pc.hardware.cpu.chip.name}`);
         this.pc.write(`run with ram: ${this.pc.hardware.ram.size}MB`);
 

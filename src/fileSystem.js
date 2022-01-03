@@ -4,55 +4,73 @@ const path = require('path');
 class FileSystem {
     constructor (user) {
         this.user = user;
-        this.files = [];
+        this.rootFolderPath = `${path.resolve(__dirname)}/../fileSystems/_init`
         this.path = `/`;
         this.userPath = `/`;
         this.initFiles();
     }
 
     initFiles() {
-        let filePath = `${path.resolve(__dirname)}/../fileSystems/${this.user}.json`;
-        if (fs.existsSync(filePath)) {
-            this.files = JSON.parse(fs.readFileSync(filePath));
-        } else {
-            this.files = this.generateDefaultFileSystem(this.user);
-            fs.writeFileSync(filePath, JSON.stringify(this.files));
+        this.rootFolderPath = `${path.resolve(__dirname)}/../fileSystems/${this.user}`
+
+        if (!fs.existsSync(this.rootFolderPath)) {
+            this.generateDefaultFiles();
         }
+
         this.path = `/home/${this.user}`;
         this.userPath =  `/home/${this.user}`;
     }
 
-    save() {
-        let filePath = `${path.resolve(__dirname)}/../fileSystems/${this.user}.json`;
-        fs.writeFileSync(filePath, JSON.stringify(this.files));
+    generateDefaultFiles() {
+        fs.mkdirSync(this.rootFolderPath);
+        fs.mkdirSync(this.rootFolderPath + `/home`);
+        fs.mkdirSync(this.rootFolderPath + `/home/${this.user}`);
     }
 
-    generateDefaultFileSystem(username) {
-        return [{
-            type: 'dir',
-            name: 'home',
-            items: [{
-                type: 'dir',
-                name: username,
-                items: [{
-                    type: 'file',
-                    name: 'test.txt',
-                    content: "test text\ntest text line 2"
-                }]
-            }]
-        }]
+    existPath(path) {
+        return fs.existsSync(this.rootFolderPath + path)
     }
 
-    getFolder(pathArray, files = this.files) {
-        if (!pathArray.length) return files;
-        const nextFolder = pathArray.shift();
-        const dir = files.find(x => x.name === nextFolder && x.type === 'dir');
-        if (!dir) return false;
-        return this.getFolder(pathArray, dir.items);
+    getPathStatus(path) {
+        return fs.lstatSync(this.rootFolderPath + path);
+    }
+
+    readFile(path) {
+        if (this.existPath(path) && this.getPathStatus(path).isFile()) {
+            return  fs.readFileSync(this.rootFolderPath + path, 'utf8')
+        }
+        return false;
+    }
+
+    getFolderFiles(path) {
+        return fs.readdirSync(this.rootFolderPath + path);
     }
 
     get interfacePath() {
         return this.path == this.userPath ? '~' : this.path
+    }
+
+    getFixedPath(path) {
+        return `/${this.getPathArray(path).join('/')}`;
+    }
+
+    getPathArray(path) {
+        return path.split('/').filter((x) => x);
+    }
+
+    getFullPath(path) {
+        path = path && path.trim() || false;
+
+        if (!path || path === '~') path = this.userPath;
+        if (path === '..') {
+            path = this.path.split('/');
+            path.pop();
+            path = '/' + path.join('/');
+        }
+
+        if (path.charAt(0) !== '/')  path = `${this.path}/${path}`;
+
+        return this.getFixedPath(path);
     }
 }
 

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-class Acount {
+class Account {
     constructor() {
         this.user = false
         this.register = true;
@@ -40,4 +40,4 @@ class Acount {
     }
 }
 
-exports.Acount = Acount;
+exports.Account = Account;

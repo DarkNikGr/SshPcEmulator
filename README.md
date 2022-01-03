@@ -1,25 +1,29 @@
 # SshPcEmulator
 
-Doto list
-
-- ssh server -> complete
-- hardware support -> cpu and ram complete
-- network -> lan for pc complete
-- filesystem -> in progress
+###Doto list
+- services
+  - [x] ssh
+- hardware support: 
+  - [x] cpu
+  - [x] ram
+- network:
+  - [x] lan
+- filesystem
+  - [x] file system with fs 
 
 - os - commands: 
-  - cd : complete
-  - ls
-  - cat
-  - mv
-  - cp
-  - mkdir
-  - pwd
-  - rm 
-  - rmdir
-  - touch
-  - ssh (to lan pc)
-  - apk (packet manager???)
+  - [x] cd
+  - [x] ls 
+  - [x] cat
+  - [ ] mv
+  - [ ] cp
+  - [ ] mkdir
+  - [ ] pwd
+  - [ ] rm 
+  - [ ] rmdir
+  - [ ] touch
+  - [ ] ssh (to lan pc)
+  - [ ] apk (packet manager???)
 
 - gui app with blessed lib:
-  - mail client
+  - [ ] mail client

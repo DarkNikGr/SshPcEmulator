@@ -1,4 +1,4 @@
-const { Acount } = require("./account");
+const { Account } = require("./account");
 const minimist = require('minimist');
 const { FileSystem } = require("./fileSystem");
 const { Hardware } = require("./hardware");
@@ -10,7 +10,7 @@ class PcEmulator {
         this.id = uuidv4();
         this.hostname = hostname;
         this.network = network;
-        this.account = new Acount();
+        this.account = new Account();
         this.fileSystem = false;
         this.hardware = false;
         this.stream = false;
